@@ -7,6 +7,8 @@ const WINNING_AGAINST = {
 }
 
 export class RockPaperScissors {
+    userScore = 0;
+    computerScore = 0;
     generateComputerMove(): MovesType {
         return MOVES[~~(Math.random() * MOVES.length)]
     }
@@ -22,11 +24,13 @@ export class RockPaperScissors {
             console.log(`It is a tie!`)
         } else if (WINNING_AGAINST[computerMove] === playerMove) {
             console.log(`Computer win!`)
+            this.computerScore += 1
         } else {
             console.log(`You win!`)
+            this.userScore += 1
         }
     }
-    play() {
+    play(): void {
         const computerMove = this.generateComputerMove()
         const userMove = this.takeUserInput()
         console.log(`USER MOVE: ${userMove} vs COMPUTER MOVE: ${computerMove}`)
@@ -34,5 +38,11 @@ export class RockPaperScissors {
     }
 }
 
+
 const game = new RockPaperScissors()
-game.play()
+let numberOfRounds = 3
+while(numberOfRounds > 0) {
+    game.play()
+    console.log(`Current score User vs Computer: ${game.userScore} vs ${game.computerScore}`)
+    numberOfRounds -= 1
+}
